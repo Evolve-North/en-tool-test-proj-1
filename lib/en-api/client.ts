@@ -4,8 +4,12 @@
 
 const PLATFORM_URL = process.env.NEXT_PUBLIC_PLATFORM_URL ?? "";
 
-export async function enFetch(path: string, init?: RequestInit): Promise<Response> {
-  if (!PLATFORM_URL) throw new Error("NEXT_PUBLIC_PLATFORM_URL is not configured");
+export async function enFetch(
+  path: string,
+  init?: RequestInit,
+): Promise<Response> {
+  if (!PLATFORM_URL)
+    throw new Error("NEXT_PUBLIC_PLATFORM_URL is not configured");
   const url = `${PLATFORM_URL}/api/en-proxy${path.startsWith("/") ? path : `/${path}`}`;
   return fetch(url, { ...init, credentials: "include" });
 }

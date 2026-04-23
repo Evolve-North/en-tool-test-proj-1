@@ -6,7 +6,9 @@ const ACCESS_CONTROL = process.env.NEXT_PUBLIC_ACCESS_CONTROL ?? "org";
 const OWNER_EN_USER_ID = process.env.NEXT_PUBLIC_OWNER_EN_USER_ID ?? "";
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)).*)"],
+  matcher: [
+    "/((?!_next|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)).*)",
+  ],
 };
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
@@ -41,7 +43,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (user && ACCESS_CONTROL === "owner_only") {
     const userEnId = user.user_metadata?.en_user_id;
     if (userEnId !== OWNER_EN_USER_ID) {
-      return new NextResponse("You don't have access to this tool", { status: 403 });
+      return new NextResponse("You don't have access to this tool", {
+        status: 403,
+      });
     }
   }
 
